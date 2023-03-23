@@ -1,9 +1,11 @@
-function doSend(color) {
-    console.log("Hello " + color);
+function doSend(colorVar) {
+    console.log("Hello " + colorVar);
     $.ajax({
         type: "POST",
         url: "/action",
-        data: '{"color": "blue"}',
+        contentType: "application/json; charset=utf-8",
+        data:  JSON.stringify({color: colorVar}),
+        // data: '{"color": "blue"}',
         success: (msg) => {
             console.log("my success", msg)
         },
