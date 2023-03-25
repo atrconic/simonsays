@@ -8,11 +8,16 @@
 </head>
 <body>
 <div class="container">
-    {% set colors=["primary", "danger", "success", "warning"] %}
-    {% for my_item in ["blue", "red", "green", "yellow"] %}
-        <button onclick="doSend('{{ my_item }}')" type="button" class="btn btn-{{colors[loop.index-1]}}">{{ my_item }} </button>
+    {% set colors={"blue": "primary",
+                    "red":  "danger",
+                    "green": "success",
+                    "yellow": "warning"} %}
+    {% for my_item in colors.keys() %}
+        <button onclick="doSend('{{ my_item }}')" type="button" class="btn btn-{{colors[my_item]}}">{{ my_item }} </button>
     {% endfor %}
-
+    <p id="boja">
+        <div class="p-3 mb-2 rounded border text-black" id="guess-div">&nbsp;</div>
+    </p>
 </div>
 <script src="/static/app.js"></script>
 </body>
