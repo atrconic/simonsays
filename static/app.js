@@ -20,25 +20,56 @@ function failFunction(xhr, errmsg) {
 }
 
 function sakrijGuess() {
-    setTimeout(function(){
-        let guessDiv = $("#guess-div");
-        guessDiv.removeClass("bg-primary");
-        guessDiv.removeClass("bg-danger");
-        guessDiv.removeClass("bg-success");
-        guessDiv.removeClass("bg-warning");
-        enabledButtons();
-    }, 1000);
+    let guessDiv = $("#guess-div");
+    guessDiv.removeClass("bg-primary");
+    guessDiv.removeClass("bg-danger");
+    guessDiv.removeClass("bg-success");
+    guessDiv.removeClass("bg-warning");
+    enabledButtons();
 }
+
+function swapColorRek(colors, index) {
+//    console.log("start timer for ", colors, index)
+    let duration = index % 2 === 0 ? 500 : 1000
+    setTimeout(function(colors){
+//        console.log("abc", Date(), index)
+        if (index % 2 === 0) {
+            showGuess(colors[index / 2])
+        } else {
+            showGuess("")
+        }
+        if (index <= 2 * colors.length - 2) {
+           swapColorRek(colors, index + 1)
+        }
+    }, duration, colors);
+}
+
+//function swapColor(colors) {
+//    for (c in colors){
+//        console.log("start timer for ", c)
+//        setTimeout(function(c){
+//            console.log("abc", Date(), c)
+//        }, 1000, c);
+//    }
+//}
+
+//primili boje, (colors = p, z, c)
+//prikazi plavu
+//cekaj 3 sekunde
+//prikazi zelenu
+//cekaj 3 sekunde
+//prikazi crvenu
+//cekaj 3 sekunde
+//sakrij crvenu
 
 function getGuess() {
     disabledButtons();
     $.ajax({
         type: "GET",
         url: "/get-guess",
-        success: (msg) => {
-            console.log("guess", msg);
-            showGuess(msg);
-            sakrijGuess(msg);
+        success: (colors) => {
+            console.log("guess", colors);
+            swapColorRek(colors, 0);
         },
         error: (err, xhr) => {
             console.log("guess error", err);
@@ -58,6 +89,8 @@ function showGuess(color) {
         guessDiv.addClass("bg-success");
     } else if (color === "yellow") {
         guessDiv.addClass("bg-warning");
+    } else {
+        sakrijGuess();
     }
 }
 
@@ -70,7 +103,9 @@ function enabledButtons() {
 }
 
 $(document).ready(function(){
-console.log("pocetak")
-    getGuess();
+    console.log("pocetak")
+//    getGuess();
+    //swapColor(["A", "B", "C"]);
+    swapColorRek(["blue", "green", "red", "yellow"], 0);
 });
 

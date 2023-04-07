@@ -19,8 +19,8 @@ def render_index():
 def get_guess():
     global guess
     #time.sleep(1)
-    print("boja", guess[-1])
-    return jsonify(guess[-1])
+    print("boja", guess)
+    return jsonify(guess)
 
 
 @app.route("/action", methods=['POST'])
