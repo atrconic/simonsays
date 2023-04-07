@@ -13,7 +13,7 @@
                     "green": "success",
                     "yellow": "warning"} %}
     {% for my_item in colors.keys() %}
-        <button onclick="doSend('{{ my_item }}')" type="button" class="btn btn-{{colors[my_item]}}">{{ my_item }} </button>
+        <button onclick="didClick('{{ my_item }}')" type="button" class="btn btn-{{colors[my_item]}}">{{ my_item }} </button>
     {% endfor %}
     <p id="boja">
         <div class="p-3 mb-2 rounded border text-black" id="guess-div">&nbsp;</div>

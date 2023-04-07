@@ -1,3 +1,13 @@
+var colors = []
+var clickColors = []
+
+function didClick(color) {
+    clickColors.push(color)
+    if (clickColors.length === colors.length) {
+        doSend(color)
+    }
+}
+
 function doSend(colorVar) {
     $.ajax({
         type: "POST",
@@ -5,6 +15,7 @@ function doSend(colorVar) {
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({color: colorVar}),
         success: (msg) => {
+            clickColors = []
             getGuess();
         },
         error: failFunction,
@@ -37,7 +48,7 @@ function showColorsSequence(colors, index) {
         } else {
             enabledButtons()
         }
-    }, duration, colors);
+    }, duration / 2, colors);
 }
 
 function getGuess() {
@@ -45,8 +56,9 @@ function getGuess() {
     $.ajax({
         type: "GET",
         url: "/get-guess",
-        success: (colors) => {
-            showColorsSequence(colors, 0);
+        success: (newColors) => {
+            colors = newColors
+            showColorsSequence(newColors, 0);
         },
         error: (err, xhr) => {
             console.log("guess error", err);
