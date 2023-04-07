@@ -1,5 +1,4 @@
 import random
-import time
 
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
@@ -18,8 +17,6 @@ def render_index():
 @app.route("/get-guess")
 def get_guess():
     global guess
-    #time.sleep(1)
-    print("boja", guess)
     return jsonify(guess)
 
 
@@ -44,7 +41,6 @@ def do_action():
 def reset():
     global actions, guess
     guess = [rand_color()]
-    print(guess)
     actions = []
 
 
