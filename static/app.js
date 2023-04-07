@@ -22,7 +22,6 @@ function clearGuessColor() {
     guessDiv.removeClass("bg-danger");
     guessDiv.removeClass("bg-success");
     guessDiv.removeClass("bg-warning");
-    enabledButtons();
 }
 
 function showColorsSequence(colors, index) {
@@ -35,6 +34,8 @@ function showColorsSequence(colors, index) {
         }
         if (index <= 2 * colors.length - 2) {
            showColorsSequence(colors, index + 1)
+        } else {
+            enabledButtons()
         }
     }, duration, colors);
 }
